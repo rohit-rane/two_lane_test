@@ -1,0 +1,1065 @@
+@font-face {
+    font-family: 'OpticianSans-Regular';
+    src: url('OpticianSans-Regular.eot');
+    src: url('OpticianSans-Regular.eot?#iefix') format("embedded-opentype"),
+     url('OpticianSans-Regular.woff2') format("woff2"),
+      url('OpticianSans-Regular.woff') format("woff"),
+        url('OpticianSans-Regular.ttf') format("ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Adieu-Bold';
+    src: url('Adieu-Bold.eot');
+    src: url('Adieu-Bold.eot?#iefix') format("embedded-opentype"),
+     url('Adieu-Bold.woff2') format("woff2"),
+      url('Adieu-Bold.woff') format("woff"),
+        url('Adieu-Bold.ttf') format("ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Adieu-Regular';
+    src: url('Adieu-Regular.eot');
+    src: url('Adieu-Regular.eot?#iefix') format("embedded-opentype"),
+     url('Adieu-Regular.woff2') format("woff2"),
+      url('Adieu-Regular.woff') format("woff"),
+        url('Adieu-Regular.ttf') format("ttf");
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+:root {
+    --baseFontSize: 16;
+    --ease: ease-in-out;
+    --cubic: cubic-bezier(0.12, 0.67, 0.53, 1);
+    --black: #000;
+    --white: #fff;
+    --websiteBlue: #002452;
+    --websiteGreen: #128728;
+    --introTextFont: "CoreCircus";
+    --legalTextFont: "Avenir";
+    --dobLabelTextFont: "CoreCircus";
+    --dobPlaceholderTextFont: "CoreCircus";
+}
+
+.hero__copy-vid {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    width: 85%;
+    max-width: 900px;
+    height: 70vh;
+    text-align: center;
+    text-shadow: 0 2px 15px rgba(0, 0, 0, 0.29);
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding-top: 110px;
+}
+
+@-moz-document url-prefix() {
+    .age-gate input::placeholder {
+        font-size: 52px !important;
+    }
+}
+
+.age-gate input::-moz-placeholder,
+.age-gate input[type=number] {
+    color: #231F20;
+    opacity: 1;
+}
+
+.hero__vid-wrap {
+    position: relative;
+    max-width: 1700px;
+    height: 70vh;
+    margin: 0 auto;
+}
+
+.hero__vid {
+    display: none;
+}
+      
+      
+.age-gate__form {
+    margin-bottom: 35px;
+}
+
+
+
+.age-gate {
+    display: none;
+    background-color: #6c757d;
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9999999;
+}
+
+body.lock-hidden header {
+    display: block;
+}
+
+.hero__vid-wrap--gate {
+    height: 100%;
+    width: 100%;
+    max-width: none;
+}
+
+.age-gate__audio-copy-wrap {
+    display: none;
+}
+
+
+
+.age-gate .audio-control__wrap {
+    position: static;
+    width: 54px;
+    transform: translateX(0);
+}
+
+.age-gate__audio-text {
+    color: #fff;
+    font-size: 1rem;
+    font-size: calc(16 / var(--baseFontSize) * 1rem);
+    text-align: right;
+    text-transform: uppercase;
+    width: 240px;
+    padding-right: 20px;
+}
+
+.age-gate__content {
+    background-color: rgba(0,33,89,.807843137254902);
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+
+.age-gate__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.age-gate__logo {
+    width: 100%;
+    margin: 0px auto 38px;
+    text-align: center;
+}
+
+.age-gate__legal.mobile {
+    display: none;
+}
+
+.age-gate__logo svg {
+    width: 245px;
+}
+
+.age-gate__intro {
+    color: #fbfbfd;
+    font-size: 14px;
+    line-height: 1.2em;
+    width: 450px;
+    margin: 0 auto 20px;
+    display: block;
+    font-weight: 400;
+}
+      
+#age-gate__form input::placeholder {
+    color: #fff !important;
+}           
+
+.age-gate__form-button-wrap {
+    text-align: center;
+    display: block;
+    width: 100%;
+    position: relative;
+    right: 0px;
+}
+
+.age-gate__form {
+    position: relative;
+    width: 100%;
+    display: flex;
+   justify-content: center;
+}
+
+
+
+.age-gate__valid {
+    display: none;
+    position: absolute;
+    left: 0;
+    bottom: -32px;
+    transform: unset;
+    color: #981f22;
+    font-size: 1rem;
+    font-size: calc(16 / var(--baseFontSize) * 1rem);
+    width: 100%;
+    right: 0;
+}
+
+.age-gate__valid.show {
+    display: block;
+}
+
+.age-gate__legal {
+    color: #fff;
+    font-size: 0.875rem;
+    font-size: calc(14 / var(--baseFontSize) * 1rem);
+    max-width: 100%;
+    text-align: center;
+    margin:  auto 0;
+}
+
+#age-gate .age-gate__audio-text {
+    font-size: 16px;
+    margin: 0;
+}
+
+#age-gate .age-gate__legal p {
+    color: #fff;
+    margin: 0;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    text-align: center;
+    font-size: 11px;
+    font-weight: normal;
+    font-family: 'OpticianSans-Regular';
+}
+
+.age-gate__legal a {
+    text-decoration: underline;
+    color: #fff ;
+}
+.age-gate__legal br {
+    display: none;
+}
+.age-gate__legal a:focus {
+    outline: 0 !important;
+}
+
+.age-gate__input-wrap {
+    position: relative;
+}
+
+.age-gate__input-wrap--bday {
+    flex: unset;
+    margin: 0 27px;
+    line-height: 1;
+    width: 98px;
+}
+
+.age-gate input:-ms-input-placeholder,
+.age-gate input::-webkit-input-placeholder,
+.age-gate input::placeholder {
+    color: #000;
+    opacity: 1;
+}
+
+.age-gate__input-wrap--month {
+    flex: unset;
+    line-height: 1;
+    width: 98px;
+}
+
+.age-gate__input-wrap--year {
+    flex: unset;
+    line-height: 1;
+}
+
+
+
+.age-gate__submit-inner-rule {
+    cursor: pointer;
+    position: relative;
+    display: inline-block;
+}
+
+.age-gate__submit-inner-rule:after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: calc(100% - 6px);
+    height: calc(100% - 6px);
+    border-radius: 32px;
+    border: 2px solid #002452;
+    border: 2px solid var(--websiteBlue);
+}
+
+.age-gate input::-webkit-inner-spin-button,
+.age-gate input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.age-gate .error {
+    bottom: 40%;
+    color: #fff;
+    font-size: 1.25rem;
+    font-size: calc(20 / var(--baseFontSize) * 1rem);
+    left: 45%;
+    line-height: 20px;
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    text-align: center;
+    width: 120%;
+    transition: all 0.3s ease-in-out;
+    transform: translateX(-50%);
+}
+
+.age-gate .error.active {
+    -webkit-animation: invalid_age_fade 4s 1;
+    animation: invalid_age_fade 4s 1;
+}
+
+.age-gate input[type="number"] {
+    width: 110px;
+    height: 40px;
+    background: transparent;
+    border: none;
+    text-align: center;
+    color: #f4af20;
+    font-size: 46px;
+    border-right: 2px solid #fff;
+    font-family: Cenzo Flare;
+}
+
+.age-gate input[type="number"]:after {
+    content: "";
+    width: 2px;
+    height: 100%;
+    display: block;
+    background: #fbfbfd;
+}
+
+.age-gate input::-moz-placeholder {
+    color: #231F20;
+}
+
+.age-gate input:-ms-input-placeholder {
+    color: #231F20;
+}
+
+.age-gate input::placeholder {
+    color: #000;
+}
+
+.age-gate input::-webkit-input-placeholder {
+    color: #000;
+}
+
+.age-gate input:focus::-moz-placeholder {
+    color: #657687!important;
+}
+
+.age-gate input:focus:-ms-input-placeholder {
+    color: #657687 !important;
+}
+
+#age-gate__form input:focus::placeholder {
+    color: #657687 !important;
+    opacity: 1;
+}
+
+.age-gate input:focus::-webkit-input-placeholder {
+    color: #657687 !important;
+}
+
+#age-gate.age-gate label {
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+      font-family: 'Adieu-Bold';
+}
+
+
+.age-gate input::-moz-placeholder {
+    font-size: 2.75rem;
+    font-size: calc(44 / var(--baseFontSize) * 1rem);
+    line-height: 4.5625rem;
+    line-height: calc(73 / var(--baseFontSize) * 1rem);
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+@-moz-document url-prefix() {
+    #age-gate__form fieldset {
+        width: 90% !important;
+    }
+    .age-gate__input-wrap::after {
+        bottom: 19% !important;
+    }
+}
+
+.age-gate input:-ms-input-placeholder {
+    font-size: 2.75rem;
+    font-size: calc(44 / var(--baseFontSize) * 1rem);
+    line-height: 4.5625rem;
+    line-height: calc(73 / var(--baseFontSize) * 1rem);
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.age-gate .btn {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 1;
+    text-align: center;
+    border-radius: 0 !important;
+    border: 0 !important;
+    color: #000;
+    text-transform: none;
+    font-weight: 400;
+    padding: 12px 45px !important;
+    white-space: normal;
+}
+
+.btn--hero,
+.btn--hero:after {
+    border: 0 !important;
+}
+
+
+
+.btn--rev {
+    color: #fff;
+    transition: 0.2s;
+}
+
+
+.btn--rev-blue {
+    position: relative;
+    color: #fff;
+    background-color: #002452;
+    background-color: var(--websiteBlue);
+    border: none;
+    transition: 0.2s;
+}
+
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline:focus {
+    outline: 2px solid #000;
+    border: 5px solid #fff;
+    outline-offset: 3px;
+}
+
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline:hover {
+    outline: 2px solid #000;
+    border: 5px solid #fff;
+    outline-offset: 3px;
+}
+
+
+.btn--hero:after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(100% - 8px);
+    height: calc(100% - 8px);
+    border: 2px solid #002452;
+    border: 2px solid var(--websiteBlue);
+}
+
+
+.btn--hero.mobile-hide {
+    display: none;
+}
+
+
+
+.btn--hero.desktop-hide {
+    display: block;
+}
+
+
+
+.btn--hero:hover {
+    border: none;
+}
+
+.btn--hero-inline {
+    display: inline-block;
+    padding: 15px 32px;
+    width: auto;
+    font-weight: 600;
+}
+
+.btn--hero-inline,
+.btn--hero-inline:after {
+    border-radius: 50px !important;
+}
+
+.btn--filters {
+    padding: 15px 32px;
+}
+
+.btn--filters,
+.btn--filters:after {
+    border-radius: 50px !important;
+}
+
+
+
+.btn--print,
+.btn--print:after {
+    border-radius: 50px !important;
+}
+
+.btn--print {
+    max-width: 204px;
+    margin: 0 auto;
+}
+
+
+
+
+.style-placeholder {
+    width: 230px;
+    height: 115px;
+}
+
+.lock-scroll {
+    overflow: hidden;
+}
+
+.audio-control__volume-off.active,
+.audio-control__volume-up.active {
+    display: block;
+}
+
+.audio-control__volume-off,
+.audio-control__volume-up {
+    display: none;
+}
+
+.audio-control__volume-off,
+.audio-control__volume-up {
+    width: 32px;
+    height: 32px;
+}
+
+
+
+.hero-background-color {
+    background-color: #fff;
+}
+
+.lock-hidden {
+    overflow: hidden;
+}
+
+.show {
+    display: block;
+}
+
+
+#mute-icon img,
+#mute-icon svg,
+#play-icon img,
+#play-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+@-webkit-keyframes invalid_age_fade {
+    10% {
+        bottom: 103%;
+        opacity: 1;
+    }
+    90% {
+        bottom: 103%;
+        opacity: 1;
+    }
+    to {
+        bottom: 40%;
+        opacity: 0;
+    }
+}
+
+@keyframes invalid_age_fade {
+    10% {
+        bottom: 103%;
+        opacity: 1;
+    }
+    90% {
+        bottom: 103%;
+        opacity: 1;
+    }
+    to {
+        bottom: 40%;
+        opacity: 0;
+    }
+}
+
+.age-gate__form input:focus {
+    outline: 2px solid #000;
+}
+
+#age-gate__form fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    max-width: 867px;
+    margin: 0 auto;
+}
+
+#age-gate__form legend {
+    display: none;
+}
+
+.age-gate__legal a:focus {
+    outline: 2px solid #000 !important;
+    border: 2px #fff solid !important;
+}
+
+.age-gate__input-wrap.age-gate__input-wrap--year,
+.age-gate__input-wrap.age-gate__input-wrap--year label {
+    width: 120px;
+}
+
+.age-gate__input-wrap.age-gate__input-wrap--year:after {
+    width: 100%;
+}
+
+p.age-gate__choose {
+    color: #fff;
+    letter-spacing: 1px;
+}
+
+
+
+.hero_img_blur {
+    filter: blur(3px);
+    -webkit-filter: blur(3px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/***new age gate css 17-09-21*/
+
+svg.nav__logo {
+    height: auto;
+    width: 100%;
+    max-width: 30%;
+}
+
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+  	font-family: 'Adieu-Bold';
+    font-size: 12px !important;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 0.48px;
+    color: #37009b;
+    text-transform: uppercase;
+    width: 156px;
+    height: 50px;
+    background-color: #fff;
+    margin-bottom:38px;
+}
+
+div#hero-vid-gate {
+    background-size: cover;
+    position: relative;
+    background-repeat: repeat;
+    background-position: center;
+    background-color: #fff;
+}
+
+div#hero-vid-gate::after {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.age-gate__input-wrap:after {
+    height: 3px !important;
+    bottom: 38% !important;
+}
+
+#age-gate.age-gate label {
+    line-height: 30px;
+}
+
+input.age-gate__input:focus::-webkit-input-placeholder {
+    color: #696969 !important;
+}
+
+svg.nav__logo:focus-visible,
+svg.nav__logo:focus {
+    outline: none;
+    box-shadow: unset;
+}
+
+.age-gate .error {
+    color: #981f22;
+}
+
+.age-gate__legal.mobile {
+    display: none;
+}
+
+.age-gate__legal.desktop {
+    display: block;
+}
+
+.age-gate__logo img {
+    width: 200px;
+}
+
+
+/***media query start******/
+ 
+
+
+@media (min-width:1680px)  {
+.age-gate__content {
+    max-width: 700px;
+    padding: 100px 50px 35px;
+    height: auto;
+}
+.age-gate__intro p {
+    font-size: 22px;
+}
+  
+#age-gate.age-gate label {
+    font-size: 18px;
+}
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+    font-size: 18px!important;
+    width: 180px;
+    height: 60px;
+}  
+#age-gate .age-gate__legal p {
+       font-size: 18px;
+    line-height: 26px;
+}  
+#age-gate.age-gate label {
+    line-height: 50px;
+}
+.age-gate__intro p {
+    margin: 0 0 55px 0;
+}
+}
+
+/* 2K screen */
+@media(min-width:2500px){
+    .age-gate__content {
+        padding: 150px 50px 80px;
+    }
+    .age-gate__intro p {
+        font-size: 26px;
+    }
+    #age-gate .age-gate__legal p {
+        font-size: 24px;
+        line-height: 37px;
+    }
+    .age-gate__content {
+        max-width: 800px;
+    }
+    div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+        font-size: 22px!important;
+        width: 206px;
+        height: 75px;
+    }
+    .age-gate__input-wrap--month,.age-gate__input-wrap--bday {
+        width: 135px;
+    }
+    .age-gate__input-wrap.age-gate__input-wrap--year, .age-gate__input-wrap.age-gate__input-wrap--year label {
+        width: 160px;
+    }
+}
+
+/* 1366 screen*/
+
+
+
+@media (max-width: 1370px)  {
+ .age-gate__logo {
+    margin: 0 auto 12px;
+}
+.age-gate__content {
+    padding: 58px 50px 20px;
+}
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+    margin-bottom: 32px;
+}  
+.age-gate__form {
+    margin-bottom: 15px;
+}  
+.age-gate__logo svg {
+    width: 200px;
+}  
+.age-gate__valid.show {
+    display: block;
+}
+.show {
+    display: block;
+}
+.age-gate__valid {
+    bottom: -22px;
+}
+}   
+
+/*ipad ipad pro*/
+
+@media (max-width: 1199px)  {
+  .age-gate__content {
+    top: 50%;
+    left: 0;
+    bottom: unset;
+    padding: 80px 50px 25px;
+    transform: translateY(-50%);
+}
+ 
+}
+
+@media(max-width:991px) and (min-width:800px){
+    .age-gate__content {
+        top: 25px;
+        transform: unset;
+    }
+    #age-gate {
+        overflow-y: scroll !important;
+        background-image: url(https://cdn.shopify.com/s/files/1/0559/7632/9277/files/repeat-grid-1_3x_b55568d1-791d-43a9-ab6b-880f9c4de0fd.png) !important;
+        background-size: cover !important;
+    }
+    div#hero-vid-gate {
+        background-color: unset;
+        background-image: unset !important;
+    }
+}
+
+
+/*mobile portrait*/
+@media(max-width:767px) and (min-width:429px){
+    .age-gate__content {
+        transform: unset;
+        top: 5%;
+        height: 90%;
+        width: 80%;
+        left: 10%;
+        padding: 50px 18px 50px;
+    }
+    #age-gate {
+        overflow-y: scroll !important;
+        background-image: url(https://cdn.shopify.com/s/files/1/0559/7632/9277/files/repeat-grid-1_3x_b55568d1-791d-43a9-ab6b-880f9c4de0fd.png) !important;
+        background-size: cover !important;
+    }
+    div#hero-vid-gate {
+        background-color: unset;
+        background-image: unset !important;
+    }
+}
+@media(max-width:428px){
+.age-gate__content {
+    transform: unset;
+    top: 5%;
+    height: auto;
+    width: 80%;
+    left: 10%;
+    padding: 50px 18px 10px;
+}
+#age-gate__form input::placeholder{
+    font-size: 80px;
+}
+#age-gate.age-gate label {
+    font-size: 12px !important;
+}  
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+    width: 294px;
+    margin-bottom: 30px;
+}  
+.age-gate__content {
+    background-image: unset;
+}
+div#age-check-prompt::after {
+    content: "";
+    position: absolute;
+    top: -50px;
+    width: 100%;
+    height: 64px;
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
+    left: 0;
+}
+.age-gate__input-wrap.age-gate__input-wrap--year, .age-gate__input-wrap.age-gate__input-wrap--year label {
+    width: 110px;
+}
+.age-gate__input-wrap--month ,
+.age-gate__input-wrap--bday{
+    width: 80px;
+}
+}   
+      
+  
+      
+/*678 or 678 plus portrait*/
+
+@media only screen and (device-width: 414px) and (device-height: 736px) {
+    .age-gate__content {
+        height: 90%;
+        padding: 40px 18px 50px;
+    }
+  
+}
+      
+@media only screen and (device-width: 375px) and (device-height: 667px) {
+    .age-gate__content {
+        height: 89%;
+        padding: 15px 18px 50px;
+    }
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+    margin-bottom: 20px;
+}  
+.age-gate__form {
+    margin-bottom: 15px;
+}  
+.age-gate__intro p {
+    margin: 0 0 20px;
+}  
+
+.age-gate__logo {
+    margin: 0 auto 15px;
+}  
+}  
+            
+
+/**reflow 200**/
+      
+@media (min-width:600px) and (max-width:800px) and (max-height:320px){
+    .age-gate__content {
+        padding: 0 20px;
+    }
+    .age-gate__intro p {
+        font-size: 12px;
+    } 
+    #age-gate {
+        overflow-y: scroll !important;
+        background-image: url(https://cdn.shopify.com/s/files/1/0559/7632/9277/files/repeat-grid-1_3x_b55568d1-791d-43a9-ab6b-880f9c4de0fd.png) !important;
+        background-size: cover !important;
+    }
+    div#hero-vid-gate {
+        background-color: unset;
+        background-image: unset !important;
+    }
+    .age-gate__form {
+        min-width: unset;
+    }
+    div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+        width: 100%;
+    }
+    .age-gate__content {
+        background-image: unset;
+    }
+    .age-gate__content {
+        top: 0;
+        transform: unset;
+    }
+    .age-gate__content {
+        background-image: unset;
+        background-color: #38019c;
+    }
+    .age-gate__content {
+        padding-bottom: 20px;
+    }
+    .hero__vid-wrap--gate {
+        height: auto;
+    }
+}
+      
+      
+/**reflow 400**/    
+      
+@media (max-width:400px) and (max-height:320px){
+
+.age-gate__content {
+    padding: 0 20px;
+}
+.age-gate__intro p {
+    font-size: 12px;
+} 
+#age-gate {
+    overflow-y: scroll !important;
+    background-image: url(https://cdn.shopify.com/s/files/1/0559/7632/9277/files/repeat-grid-1_3x_b55568d1-791d-43a9-ab6b-880f9c4de0fd.png) !important;
+    background-size: cover !important;
+}
+div#hero-vid-gate {
+    background-color: unset;
+    background-image: unset !important;
+}
+.age-gate__form {
+    min-width: unset;
+}
+div#shopify-section-age-gate #age-gate button.btn.btn--hero.btn--hero-inline {
+    width: 100%;
+}
+.age-gate__content {
+    background-image: unset;
+}
+.age-gate__content {
+    background-image: unset;
+}
+.age-gate__content {
+    height: auto;
+    position: unset;
+}
+div#age-check-prompt::after{
+    display: none;
+}
+.age-gate__input-wrap.age-gate__input-wrap--year, .age-gate__input-wrap.age-gate__input-wrap--year label {
+    width: 90px;
+}
+.age-gate__input-wrap--bday, .age-gate__input-wrap--month {
+    width: 75px;
+}
+.age-gate__content {
+    padding-bottom: 20px;
+}
+.hero__vid-wrap--gate {
+    height: auto;
+}
+}      
+      
+/***END*****/

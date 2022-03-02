@@ -1,1 +1,196 @@
-{"current":{"sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"color_scheme":"background-1"}}},"block_order":["announcement-bar-0"],"settings":{}},"header":{"type":"header","settings":{"logo_width":90}},"footer":{"type":"footer","blocks":{"footer-0":{"type":"link_list","settings":{}},"footer-1":{"type":"link_list","settings":{"heading":"Info"}},"footer-2":{"type":"text","settings":{"heading":"Our mission"}}},"block_order":["footer-0","footer-1","footer-2"],"settings":{"show_social":true,"enable_country_selector":false,"enable_language_selector":false,"margin_top":48}},"main-password-header":{"type":"main-password-header","settings":{}},"main-password-footer":{"type":"main-password-footer","settings":{}}}},"presets":{"Default":{"sections":{"announcement-bar":{"type":"announcement-bar","blocks":{"announcement-bar-0":{"type":"announcement","settings":{"color_scheme":"background-1"}}},"block_order":["announcement-bar-0"],"settings":{}},"header":{"type":"header","settings":{"logo_width":90}},"footer":{"type":"footer","blocks":{"footer-0":{"type":"link_list","settings":{}},"footer-1":{"type":"link_list","settings":{"heading":"Info"}},"footer-2":{"type":"text","settings":{"heading":"Our mission"}}},"block_order":["footer-0","footer-1","footer-2"],"settings":{"show_social":true,"enable_country_selector":false,"enable_language_selector":false,"margin_top":48}},"main-password-header":{"type":"main-password-header","settings":{}},"main-password-footer":{"type":"main-password-footer","settings":{}}}}}}
+{
+    "current": {
+      "sections": {
+        "announcement-bar": {
+          "type": "announcement-bar",
+          "blocks": {
+            "announcement-bar-0": {
+              "type": "announcement",
+              "settings": {
+                "text": "Welcome to our store",
+                "color_scheme": "background-1",
+                "link": ""
+              }
+            }
+          },
+          "block_order": [
+            "announcement-bar-0"
+          ],
+          "settings": {
+          }
+        },
+        "header": {
+          "type": "header",
+          "settings": {
+            "color_scheme": "background-1",
+            "logo_width": 90,
+            "logo_position": "middle-left",
+            "menu": "main-menu",
+            "show_line_separator": true,
+            "enable_sticky_header": true,
+            "margin_bottom": 0
+          }
+        },
+        "footer": {
+          "type": "footer",
+          "blocks": {
+            "footer-0": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Quick links",
+                "menu": "footer"
+              }
+            },
+            "footer-1": {
+              "type": "link_list",
+              "settings": {
+                "heading": "Info",
+                "menu": "footer"
+              }
+            },
+            "footer-2": {
+              "type": "text",
+              "settings": {
+                "heading": "Our mission",
+                "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+              }
+            }
+          },
+          "block_order": [
+            "footer-0",
+            "footer-1",
+            "footer-2"
+          ],
+          "settings": {
+            "color_scheme": "background-1",
+            "newsletter_enable": true,
+            "newsletter_heading": "Subscribe to our emails",
+            "show_social": true,
+            "enable_country_selector": false,
+            "enable_language_selector": false,
+            "payment_enable": true,
+            "margin_top": 48,
+            "padding_top": 36,
+            "padding_bottom": 36
+          }
+        },
+        "main-password-header": {
+          "type": "main-password-header",
+          "settings": {
+          }
+        },
+        "main-password-footer": {
+          "type": "main-password-footer",
+          "settings": {
+          }
+        },
+        "age-gate": {
+          "type": "age-gate",
+          "settings": {
+            "website_title": "website_title_text",
+            "default_theme_color": "#fdc338",
+            "default_theme_hover_color": "#d89e00",
+            "default_theme_button_color": "#d89e00",
+            "logo_type": "image",
+            "logo": "shopify:\/\/shop_images\/large-two-lane-logo.png",
+            "svg_logo": "",
+            "background_type": "image",
+            "background_color": "#6c757d",
+            "background_url": "",
+            "video_gif_url": "",
+            "background_image": "shopify:\/\/shop_images\/agegate_background.jpg",
+            "background_image_blur": false,
+            "intro_text_line_1": "You must be of legal drinking age in your country to enter this site.",
+            "intro_text_line_2": "Please enter your date of birth below and press “Enter”.",
+            "month_placeholder": "MM",
+            "day_placeholder": "DD",
+            "year_placeholder": "YYYY",
+            "cta_text": "Enter",
+            "legal": "<p>We support the Century Councils fight against underage drinking and drunk driving. To learn more, visit their website at: <a href=\"https:\/\/responsibility.org\/\" target=\"_blank\" title=\"https:\/\/responsibility.org\/\">www.centurycouncil.org <\/a><\/p><p>We will not share your information or post to your Facebook wall without your permission. <\/p><p>Lager: Kick it up responsibly. Brewed by Blue Crown Brewing, Daleville, VA. Seltzer: Kick it up responsibly. Spiked sparkling water with natural flavors. Brewed by Home Brew Mart, Daleville, VA © 2020 <\/p><p> By using this website, you agree to the <a href=\"https:\/\/www.cbrands.com\/privacy-policy\" target=\"_blank\" title=\"https:\/\/www.cbrands.com\/privacy-policy\">Privacy Policy<\/a> and <a href=\"https:\/\/www.cbrands.com\/terms\" target=\"_blank\" title=\"https:\/\/www.cbrands.com\/terms\">Terms & Conditions<\/a> of use. <a href=\"#\" target=\"_blank\" title=\"#\">Do Not Sell My Personal Information<\/a><\/p>",
+            "legal_m": "<p>We support the Century Councils fight against underage drinking and drunk driving. To learn more, visit their website at: <a href=\"https:\/\/responsibility.org\/\" target=\"_blank\" title=\"https:\/\/responsibility.org\/\">www.centurycouncil.org <\/a><\/p><p>We will not share your information or post to your Facebook wall without your permission. <\/p><p>Lager: Kick it up responsibly. Brewed by Blue Crown Brewing, Daleville, VA. Seltzer: Kick it up responsibly. Spiked sparkling water with natural flavors. Brewed by Home Brew Mart, Daleville, VA © 2020 <\/p><p> By using this website, you agree to the <a href=\"https:\/\/www.cbrands.com\/privacy-policy\" target=\"_blank\" title=\"https:\/\/www.cbrands.com\/privacy-policy\">Privacy Policy<\/a> and <a href=\"https:\/\/www.cbrands.com\/terms\" target=\"_blank\" title=\"https:\/\/www.cbrands.com\/terms\">Terms & Conditions<\/a> of use. <a href=\"#\" target=\"_blank\" title=\"#\">Do Not Sell My Personal Information<\/a><\/p>",
+            "activate_audio_module": "yes",
+            "audio_text": "Want to pass us the aux? Click here to enable audio.",
+            "video_icon_type": "svg_image",
+            "video_sound_play_svg": "<svg aria-label=\"Play Video Sound\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" height=\"24\" viewbox=\"0 0 24 24\" width=\"24\">\n<path d=\"M0 0h24v24H0z\" fill=\"none\"><\/path>\n<path fill=\"#002452\" d=\"M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z\"><\/path>\n<\/svg>",
+            "video_sound_mute_svg": "<svg aria-label=\"Mute Video Sound\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" height=\"24\" viewbox=\"0 0 24 24\" width=\"24\">\n  <path d=\"M0 0h24v24H0z\" fill=\"none\"><\/path>\n  <path fill=\"#002452\" d=\"M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z\"><\/path>\n  <\/svg>",
+            "redirect_url": "",
+            "age_limit": 21
+          }
+        }
+      },
+      "content_for_index": [
+  
+      ]
+    },
+    "presets": {
+      "Default": {
+        "sections": {
+          "announcement-bar": {
+            "type": "announcement-bar",
+            "blocks": {
+              "announcement-bar-0": {
+                "type": "announcement",
+                "settings": {
+                  "color_scheme": "background-1"
+                }
+              }
+            },
+            "block_order": [
+              "announcement-bar-0"
+            ],
+            "settings": {
+            }
+          },
+          "header": {
+            "type": "header",
+            "settings": {
+              "logo_width": 90
+            }
+          },
+          "footer": {
+            "type": "footer",
+            "blocks": {
+              "footer-0": {
+                "type": "link_list",
+                "settings": {
+                }
+              },
+              "footer-1": {
+                "type": "link_list",
+                "settings": {
+                  "heading": "Info"
+                }
+              },
+              "footer-2": {
+                "type": "text",
+                "settings": {
+                  "heading": "Our mission"
+                }
+              }
+            },
+            "block_order": [
+              "footer-0",
+              "footer-1",
+              "footer-2"
+            ],
+            "settings": {
+              "show_social": true,
+              "enable_country_selector": false,
+              "enable_language_selector": false,
+              "margin_top": 48
+            }
+          },
+          "main-password-header": {
+            "type": "main-password-header",
+            "settings": {
+            }
+          },
+          "main-password-footer": {
+            "type": "main-password-footer",
+            "settings": {
+            }
+          }
+        }
+      }
+    }
+  }

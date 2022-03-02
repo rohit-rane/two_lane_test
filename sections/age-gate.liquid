@@ -1,0 +1,776 @@
+<link rel="stylesheet" href="{{ 'section-age-gate.css' | asset_url }}">
+{% assign themeSetting  = section.settings %}
+{% assign themeColor = themeSetting.default_theme_color %}
+{% assign themeHoverColor = themeSetting.default_theme_hover_color %}
+{% assign themeButtonColor = themeSetting.default_theme_button_color %}
+{% assign language = request.path | slice: 1,2 %}
+   
+<div id="age-gate" class="age-gate" aria-modal="true" data-component="ageGate" role="form" aria-labelledby="Age Verification" aria-describedby="Verify your age in order to access the site.">
+	{% assign backgroundType = section.settings.background_type %}  
+<div id="hero-vid-gate" 
+{% if backgroundType == 'color' %} style="background-color:{{ section.settings.background_color }}" {% endif %}
+{% if backgroundType == 'image' %} style="background-image:url({{ section.settings.background_image | img_url: 'master' }})" {% endif %}  class="hero hero--age-gate hero__vid-wrap hero__vid-wrap--gate {% if section.settings.background_image_blur and backgroundType == 'image' %}hero_img_blur{% endif %}" data-component="theme_vid">
+	{% if backgroundType == 'video' %}
+      {% assign videoUrl = section.settings.background_url %}
+        {% if videoUrl != blank  %}
+          <video id="video-section" class="hero__vid" autoplay loop muted preload="auto">
+            <source src="{{ videoUrl }}" type="video/mp4">
+          </video>
+        {% endif %}
+  	{% endif %}  
+  </div>
+  <div class="age-gate__overlay"></div>
+  <div id="age-check-prompt" class="age-gate__content">
+    
+    <div class="age-gate__logo-intro-wrap">
+      <div class="age-gate__logo" id="age-gate__logo">
+        {{  logoType }}
+        {% assign logoType = section.settings.logo_type %}
+        {% assign imageSvgLogo = section.settings.svg_logo %}
+        {% assign imageLogo = section.settings.logo %}
+        
+        {% if imageLogo != blank and logoType == 'image'  %}
+        	<img aria-label="{{section.settings.website_title}} Logo" src="{{ imageLogo.src | img_url: 'large' }}" alt="{{section.settings.website_title}} Logo">
+            <div style="display:none;" id="website_logo">{{section.settings.website_title}} Logo</div>
+        {% elsif imageSvgLogo != blank and logoType == 'svg_image' %}
+        	{{ imageSvgLogo }}
+		{% else %}
+            {{ 'image' | placeholder_svg_tag: 'style-placeholder' }}
+        {% endif %}        
+      </div>
+    </div>
+    <div class="age-gate__form-button-wrap" id="age-gate__form">
+      <form name="age-consent-form" onsubmit="event.preventDefault(); return calculateUserAge();">
+        <div class="age-gate__intro" id="ageGateIntro">
+          <p>
+            {{ section.settings.intro_text_line_1 }}
+          </p>
+          <p>
+            {{ section.settings.intro_text_line_2 }}
+          </p>
+        </div>
+        <fieldset aria-controls="error_message_box">
+            <legend>Please enter Date of Birth</legend>
+        <div class="age-gate__form"> 
+        {%if language == 'es' %}
+          {% assign dob_err_valid_dateFormat = "Por favor, introduzca una fecha válida en formato MM|DD|YYYY" %} 
+          {% assign monthLabel= "MES" %}
+          {% assign dayLabel= "DÍA" %}
+          {% assign yearLabel= "AÑO" %}
+        {% else %} 
+          {% assign dob_err_valid_dateFormat = "Please enter a valid date in MM|DD|YYYY format" %}
+          {% assign monthLabel= "Month" %}
+          {% assign dayLabel= "Day" %}
+          {% assign yearLabel= "Year" %} 
+        {% endif %}
+
+          <span class="age-gate__input-wrap age-gate__input-wrap--month">
+            <label for="bmonth">{{monthLabel}}</label>
+            <input  tabindex="0" aria-describedby="ageGateIntro" id="bmonth" class="age-gate__input" data-length="2" type="number" min="1" name="bmonth" max="12" step="1" placeholder="{{section.settings.month_placeholder}}" maxlength="2" aria-label="Month" />
+          </span> 
+          <span class="age-gate__input-wrap age-gate__input-wrap--bday">
+            <label for="bday">{{dayLabel}}</label>
+            <input id="bday" tabindex="0" class="age-gate__input" data-length="2" type="number" name="bday" min="1" max="31" step="1" placeholder="{{section.settings.day_placeholder}}" maxlength="2" aria-label="Day" />
+          </span>
+          <span class="age-gate__input-wrap age-gate__input-wrap--year">
+            <label for="byear">{{yearLabel}}</label>
+            <input id="byear" tabindex="0" class="age-gate__input" data-length="4" type="number" name="byear" min="1910" max="2021" step="1" placeholder="{{section.settings.year_placeholder}}" maxlength="4" aria-label="Year" />
+          </span>
+          <div id="error_message_box" role="region" aria-live="assertive" aria-invalid="true">
+          
+           
+            <p role="alert" class="age-gate__valid" id="invalid-date-message" tabindex="-1">{{dob_err_valid_dateFormat}}</p>
+          </div>
+        </div>
+        <button type="submit" name="submit-age" class="btn btn--hero btn--hero-inline" role="button">{{ section.settings.cta_text }}</button>
+        <br>
+        </fieldset>
+      </form>
+      
+    </div>    
+    <div class="age-gate__legal desktop">
+        {{ section.settings.legal }}
+      </div>
+      <div class="age-gate__legal mobile">
+        {{ section.settings.legal_m }}
+      </div>
+  </div>
+  
+    {% assign activate_audio_module = section.settings.activate_audio_module %}
+    {% if backgroundType == 'video' and activate_audio_module == 'yes' %}
+    <div class="age-gate__audio-copy-wrap">
+        <h3 class="age-gate__audio-text">{{ section.settings.audio_text }}</h3>
+        <div class="audio-control__wrap" role="application">
+            <div class="audio-control">
+            <div onclick="playVideoSound()" id="mute-icon" class="volume-off audio-control__volume-off active">
+                {% assign imageMuteIcon = section.settings.video_sound_mute %}
+              	{% assign iconType = section.settings.video_icon_type %}
+              	{% assign svgImageMuteIcon = section.settings.video_sound_mute_svg %}
+                {% if imageMuteIcon != blank and iconType == 'image'  %}
+                    <img src="{{ imageMuteIcon.src | img_url: 'large' }}" alt="{{ imageMuteIcon.alt | escape }}">
+                {% elsif svgImageMuteIcon != blank and iconType == 'svg_image'  %}
+              			{{  svgImageMuteIcon }}
+				{% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'style-placeholder' }}
+                {% endif %}    
+            </div>
+            <div onclick="muteVideoSound()" id="play-icon" class="volume-up audio-control__volume-up">
+                {% assign imagePlayIcon = section.settings.video_sound_play %}
+              	{% assign svgImagePlayIcon = section.settings.video_sound_play_svg %}
+                {% if imagePlayIcon != blank and iconType == 'image' %}
+                    <img src="{{ imagePlayIcon.src | img_url: 'large' }}" alt="{{ imagePlayIcon.alt | escape }}">
+                {% elsif svgImagePlayIcon != blank and iconType == 'svg_image'  %}
+              			{{  svgImagePlayIcon }}
+				{% else %}
+                    {{ 'product-1' | placeholder_svg_tag: 'style-placeholder' }}
+                {% endif %} 
+            </div>
+            </div>
+        </div>
+        </div>
+      {% endif %}
+</div>
+
+<style>
+  :root {
+    --websiteYellow: {{ themeColor }};
+    --buttonFont: 'CoreCircus';
+  }
+
+
+  .age-gate__input-wrap:after {
+    display: none;
+    content: "";
+    position: absolute;
+    left: 0%;
+    width: 100%;
+    height: 2px;
+    background-color:{{ themeColor }};
+    background-color: var(--websiteYellow)
+  }
+
+  @media (hover:hover) {
+    .age-gate .btn {
+      border: 2px solid {{ themeColor }};
+      border: 2px solid var(--websiteYellow);
+      transition: .2s
+    }
+  }
+
+  @media (hover:hover) {
+    .btn--rev-blue:hover {
+      border: none;
+      transition: .2s;
+      color: #002452;
+      background-color: {{ themeColor }};
+      background-color: var(--websiteYellow)
+    }
+  }
+
+  .btn--rev-blue:after {
+    content: "";
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    width: calc(100% + 10px);
+    height: calc(100% + 10px);
+    border: 2px solid {{ themeColor }};
+    border: 2px solid var(--websiteYellow);
+    border-radius: 32px
+  }
+
+  .btn--hero {
+    position: relative;
+    width: 100%;
+    background-color: {{ themeColor }};
+    background-color: var(--websiteYellow);
+    font-size: 1.25rem;
+    font-size: calc(18/var(--baseFontSize)*1rem);
+    border: none;
+    border-radius: 0;
+    padding: 20px 23px
+  }
+
+  #age-gate button.btn.btn--hero.btn--hero-inline {
+    font-size: 16px !important;
+    padding: 13px 22px !important;
+    background-color: {{ themeButtonColor }};
+    font-family: var(--buttonFont);
+  }
+
+  @media (hover:hover) {
+    .btn--hero:hover {
+      background-color: {{ themeHoverColor }};
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .hero__vid-wrap {
+      background-image: url("{{ section.settings.video_gif_url }}");
+      background-color: rgba(0,0,0,.5);
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+    #age-gate__form label {
+      font-size: 14px !important;
+    }
+  }
+
+  .hero-background-img{
+    background-image: url({{ 'CN-Story-Sharing-720x720.jpg' | file_url }});
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  @media only screen and (width: 736px) and (height: 414px) {
+    #age-gate {
+      overflow-y: scroll !important;
+      background-image: url("{{ section.settings.background_image | img_url: 'master' }}") !important;
+      background-size: cover !important;
+	  }
+  }
+
+  @media only screen and (width: 667px) and (height: 375px) {
+    #age-gate {
+      overflow-y: scroll !important;
+      background-image: url("{{ section.settings.background_image | img_url: 'master' }}") !important;
+      background-size: cover !important;
+    }
+  }
+
+  @media only screen and (width: 812px) and (height: 375px) {
+    #age-gate {
+      overflow-y: scroll !important;
+      background-image: url("{{ section.settings.background_image | img_url: 'master' }}") !important;
+      background-size: cover !important;
+    }
+  }
+
+  @media only screen and (width: 640px) and (height: 360px) {
+    #age-gate {
+      overflow-y: scroll !important;
+      background-image: url("{{ section.settings.background_image | img_url: 'master' }}") !important;
+      background-size: cover !important;
+    }
+  }
+
+#age-gate__form input::placeholder {
+    color: #000;
+    opacity: 1;
+}
+</style>
+
+{% schema %} 
+{
+  "name": "Age Gate",
+  "settings": [
+    {
+        "type": "text",
+        "id": "website_title",
+        "label": "Website Title",
+        "default": "website_title_text"
+    },
+    {
+        "type": "color",
+        "id": "default_theme_color",
+        "label": "Age Theme Color",
+        "default": "#fdc338"
+	},
+	{
+        "type": "color",
+        "id": "default_theme_hover_color",
+        "label": "Age Theme Hover Color",
+        "default": "#d89e00"
+	},
+    {
+        "type": "color",
+        "id": "default_theme_button_color",
+        "label": "Age Theme Submit Button Color",
+        "default": "#d89e00"
+    },
+    {
+     "type": "radio",
+     "id": "logo_type",
+       "options": [
+          { "value": "image", "label": "Image"},
+		  { "value": "svg_image", "label": "SVG Image"}
+       ],
+  	 "label": "Logo Type",
+	"default": "image"
+	},
+	{
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image",
+      "info": "(Max Width : 220px, Max Height : 75px)"
+    },
+	{
+      "type": "textarea",
+      "id": "svg_logo",
+      "label": "SVG Logo"
+    },
+	{
+     "type": "radio",
+     "id": "background_type",
+       "options": [
+          { "value": "color", "label": "Color"},
+          { "value": "image", "label": "Image"},
+          { "value": "video", "label": "Video"}	
+       ],
+  	 "label": "Background Type",
+	"default": "color"
+	},	
+	{
+     "type": "color",
+     "id": "background_color",
+     "label": "Background color",
+     "default": "#6c757d"
+	},
+	{
+      "type": "url",
+      "id": "background_url",
+      "label": "Video URL ( Desktop Only )"
+    },
+	{
+      "type": "url",
+      "id": "video_gif_url",
+      "label": "Video GIF ( Mobile Only )"
+    },
+	{
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+        "type": "checkbox",
+        "id": "background_image_blur",
+        "label": "Background Image Blur Effect",
+        "default": false
+    },
+    {
+      "type": "text",
+      "id": "intro_text_line_1",
+      "label": "Intro Text Line 1",
+      "default": "You must be of legal drinking age in your country to enter this site."
+    },
+    {
+      "type": "text",
+      "id": "intro_text_line_2",
+      "label": "Intro Text Line 2",
+      "default": "Please select your country and press 'Next'."
+    },
+    {
+      "type": "text",
+      "id": "month_placeholder",
+      "label": "Month Placeholder",
+      "default": "MES"
+    },
+    {
+      "type": "text",
+      "id": "day_placeholder",
+      "label": "Day Placeholder",
+      "default": "DÍA"
+    },
+    {
+      "type": "text",
+      "id": "year_placeholder",
+      "label": "Year Placeholder",
+      "default": "AÑO"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "Enter"
+    },
+    {
+      "type": "richtext",
+      "id": "legal",
+      "label": "Legal",
+      "default": "<p>Crown imports supports the century councils fight against drinking and drunk driving. To learn more, visit their website at: <a href=\"http:\/\/www.centurycouncil.org \" title=\"http:\/\/www.centurycouncil.org \" target=\"_blank\">www.centurycouncil.org <\/a><\/p><p>Relax responsibly®. Imported by ©2021 Crown Imports, Chicago, IL <\/p><p>Our <a title=\"https:\/\/www.cbrands.com\/privacy-policy\" href=\"https:\/\/www.cbrands.com\/privacy-policy\" target=\"_blank\">Privacy Policy<\/a> and <a title=\"https:\/\/www.cbrands.com\/terms\" href=\"https:\/\/www.cbrands.com\/terms\" target=\"_blank\">Terms &amp; Conditions<\/a> have changed. By using this website, you agree to the Privacy Policy &amp; Terms and Conditions of use.<\/p>"
+    },
+    {
+      "type": "richtext",
+      "id": "legal_m",
+      "label": "Legal - Mobile",
+      "default": "<p>Crown imports supports the century councils fight against drinking and drunk driving. To learn more, visit their website at: <a href=\"http:\/\/www.centurycouncil.org \" title=\"http:\/\/www.centurycouncil.org \" target=\"_blank\">www.centurycouncil.org <\/a><\/p><p>Relax responsibly®. Imported by ©2021 Crown Imports, Chicago, IL <\/p><p>Our <a title=\"https:\/\/www.cbrands.com\/privacy-policy\" href=\"https:\/\/www.cbrands.com\/privacy-policy\" target=\"_blank\">Privacy Policy<\/a> and <a title=\"https:\/\/www.cbrands.com\/terms\" href=\"https:\/\/www.cbrands.com\/terms\" target=\"_blank\">Terms &amp; Conditions<\/a> have changed. By using this website, you agree to the Privacy Policy &amp; Terms and Conditions of use.<\/p>",
+      "info": "To be used only if required"
+    },
+    {
+        "type": "radio",
+        "id": "activate_audio_module",
+        "options": [
+          { "value": "yes", "label": "Yes"},
+		  { "value": "no", "label": "No"}
+        ],
+  	    "label": "Show Audio Control",
+	    "default": "yes"
+    },
+    {
+      "type": "text",
+      "id": "audio_text",
+      "label": "Audio Text",
+	  "default":"Want to pass us the aux? Click here to enable audio."
+    },
+	{
+     "type": "radio",
+     "id": "video_icon_type",
+       "options": [
+          { "value": "image", "label": "Image"},
+		  { "value": "svg_image", "label": "SVG Image"}
+       ],
+  	 "label": "Video Sound Icon Type",
+	"default": "svg_image"
+	},
+	{
+      "type": "image_picker",
+      "id": "video_sound_play",
+      "label": "Play Video Sound Icon "
+    },
+	{
+      "type": "image_picker",
+      "id": "video_sound_mute",
+      "label": "Muted Video Sound Icon "
+    },
+	{
+      "type": "textarea",
+      "id": "video_sound_play_svg",
+      "label": "Play Video Sound SVG Icon",
+      "default" : "<svg aria-label=\"Play Video Sound\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" height=\"24\" viewbox=\"0 0 24 24\" width=\"24\">\n<path d=\"M0 0h24v24H0z\" fill=\"none\"><\/path>\n<path fill=\"#002452\" d=\"M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z\"><\/path>\n<\/svg>"
+    },
+	{
+      "type": "textarea",
+      "id": "video_sound_mute_svg",
+      "label": "Muted Video Sound SVG Icon",
+      "default" : "<svg aria-label=\"Mute Video Sound\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" height=\"24\" viewbox=\"0 0 24 24\" width=\"24\">\n  <path d=\"M0 0h24v24H0z\" fill=\"none\"><\/path>\n  <path fill=\"#002452\" d=\"M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z\"><\/path>\n  <\/svg>"
+    },
+	{
+      "type": "url",
+      "id": "redirect_url",
+      "label": "Redirect URL"
+    },
+	{
+        "id": "age_limit",
+        "type": "number",
+        "label": "Age Limit",
+        "default": 21
+	}
+]}
+{% endschema %}
+
+<script>
+/*
+ *	Check User Current Age as per User input.
+ * 	@params: userDateOfBirth - user input Date // YYY-MM-DD
+ */
+ function calculateUserAge() {
+    // get Formfields
+    const inputMonth = parseInt(document.forms["age-consent-form"]['bmonth'].value) - 1;
+    const inputDay = document.forms["age-consent-form"]['bday'].value;
+    const inputYear = document.forms["age-consent-form"]['byear'].value;
+	if (inputMonth.length === 0 && inputDay.length === 0 && inputYear.length === 0) {
+        document.getElementById('invalid-date-message').classList.add('show');
+        document.getElementById('bmonth').focus();
+        return false;
+    }
+  
+	if (isNaN(inputMonth) || inputMonth.length === 0) {
+      document.getElementById('invalid-date-message').classList.add('show');
+      document.getElementById('bmonth').focus();
+      return false;
+    } 
+    
+    if (isNaN(inputDay) || inputDay.length === 0) {
+      document.getElementById('invalid-date-message').classList.add('show');
+      document.getElementById('bday').focus();
+      return false;
+    }
+    if (isNaN(inputYear) || inputYear.length === 0) {
+      document.getElementById('invalid-date-message').classList.add('show');
+      document.getElementById('byear').focus();
+      return false;
+    }
+  var calendarMonth31Days = [4, 6, 9, 11];
+  var curMon = inputMonth+1;
+  if (inputDay == 31 && calendarMonth31Days.includes(curMon)) {
+    document.getElementById('invalid-date-message').classList.add('show');
+    document.querySelector('#bday').focus();
+    return false;
+  }
+
+  if (!(((inputYear % 4 == 0) && (inputYear % 100 != 0)) || (inputYear % 400 == 0))) {
+    if ((inputMonth + 1) == 2) {
+      if (inputDay >= 29) {
+          document.getElementById('invalid-date-message').classList.add('show');
+          document.querySelector('#bday').focus();
+          return false;
+      }
+    }
+  }
+  else {
+    if ((inputMonth + 1) == 2) {
+      if (inputDay >= 30) {
+          document.getElementById('invalid-date-message').classList.add('show');
+          document.querySelector('#bday').focus();
+          return false;
+      }
+    }
+  }
+
+  const userDateOfBirth = new Date(inputYear, inputMonth, inputDay).getTime();
+  const currentDate = new Date();
+  const userInput = new Date(userDateOfBirth);
+  let age = currentDate.getFullYear() - userInput.getFullYear();
+
+  const monthCalculate = currentDate.getMonth() - userInput.getMonth();
+  if (monthCalculate < 0 || (monthCalculate === 0 && currentDate.getDate() < userInput.getDate())) {
+      age--;
+  }
+
+  if (age >= {{ section.settings.age_limit }}) {
+      setAgeConsent();
+  } else {
+    if ("{{ section.settings.redirect_url }}") {
+        setTimeout(function() {
+            window.location.href = "{{ section.settings.redirect_url }}"
+        }, 1e3)
+    }
+    else {
+        setTimeout(function() {
+            window.location.href = "https:\/\/www.responsibility.org\/drink-responsibly\/"
+        }, 1e3)
+    }
+	}
+}
+
+const getCookieValue = (name) => (
+    document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || ''
+)
+
+function showAgeConsentForm() {
+    const isOfAge = getCookieValue('validAge');
+    if(window.location.href.indexOf('/pages/privacy-policy') > -1){ 
+      $("#shopify-section-age-gate").hide();
+      return true;
+   }
+   if(window.location.href.indexOf('/pages/terms-conditions') > -1){ 
+    $("#shopify-section-age-gate").hide();
+    return true;
+    }
+
+    if (!isOfAge) {
+        const ageElement = document.getElementById('age-gate');
+        if (ageElement) {
+            ageElement.classList.add('show');
+            document.body.classList.add("lock-hidden");
+            $('.skip-to-content-link.button.visually-hidden').attr('tabindex', '-1');
+            $('.skip-to-content-link.button.visually-hidden').attr('aria-hidden', 'true');
+            $('#shopify-section-footer').css("display", "none");
+            $('#MainContent').css('display', 'none');
+            $('.footer').css("display", "none");
+            $('#shopify-section-announcement-bar').css("display", "none");
+            //$('#shopify-section-header').css("display", "none");
+            $('nav.main-desktop-nav').css("display", "none");
+            $('.header_logo_section.header_top').css("display", "none");
+            $('.header__icons .main-list-social').css("display", "none");
+            $('.buy-now-mobile-toggle').css("display", "none");
+            $('.header__icons .language-switcher').css("position", "absolute").css("right", "70px");
+            
+        }
+    }
+}
+showAgeConsentForm();
+
+function setAgeConsent() {
+    const days = 15; //number of days until they must go through the age checker again.
+    const date = new Date();
+    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+    const expires = "; expires=" + date.toGMTString();
+    document.cookie = 'validAge=true;' + expires + "; path=/";
+    const ageElement = document.getElementById('age-gate');
+    if (ageElement) {
+        $('#shopify-section-header').css("display", "block");
+        $('#shopify-section-announcement-bar').css("display", "block");
+        $('#shopify-section-footer').css("display", "block");
+        $('#MainContent').css('display', 'block');
+        $('.skip-to-content-link.button.visually-hidden').removeAttr('tabindex');
+        $('.skip-to-content-link.button.visually-hidden').removeAttr('aria-hidden');
+        document.body.classList.remove("lock-hidden");
+        ageElement.classList.remove('show');
+        window.location.reload();
+    }
+}
+
+function inputDateCheck(elementData) {
+    const currentElementId = elementData.id;
+    const currentElementValue = +elementData.value;
+    const getCurrentElementMaxlength = +elementData.getAttribute('maxlength');
+    if (elementData.value.length >= getCurrentElementMaxlength) {
+        //elementData.value = elementData.value.substr(0, getCurrentElementMaxlength);
+        setFieldValue(elementData, currentElementId, currentElementValue);
+    }
+}
+function setFieldValue(elementData, currentElementId, elementValue) {
+    if (currentElementId === 'bmonth') {
+        if (elementValue < 1 || elementValue > 12) {
+            elementData.value = 12;
+            return false;
+        }
+    }
+    if (currentElementId === 'bday') {
+        if (elementValue < 1 || elementValue > 31) {
+            elementData.value = 31;
+            return false;
+        }
+    }
+
+    if (currentElementId === 'byear') {
+        const maxYear = new Date().getFullYear();
+        if (elementValue < 1910 || elementValue > maxYear) {
+            elementData.value = maxYear;
+            return false;
+        }
+    }
+}
+function moveToNextField(nextElement) {
+    document.getElementById(nextElement).focus();
+}
+function playVideoSound() {
+    document.getElementById('play-icon').classList.add('active');
+    document.getElementById('mute-icon').classList.remove('active');
+    const videoComponenet = document.getElementById("video-section");
+    videoComponenet.muted = false;
+}
+function muteVideoSound() {
+    document.getElementById('mute-icon').classList.add('active');
+    document.getElementById('play-icon').classList.remove('active');
+    const videoComponenet = document.getElementById("video-section");
+    videoComponenet.muted = true;
+}
+
+
+$(document).on('keyup', '.age-gate__input', function () {
+    let input_length = $(this).val().length;
+    let input_max = $(this).data('length');
+    let input_next = $(this).data('next');
+    let input_id = $(this).prop('id');
+    let req_min = $(this).prop('min');
+    let req_max = $(this).prop('max');
+
+    $('.error').removeClass('active');
+    $('.error').removeAttr("role", "alert");
+
+    if (input_length >= input_max) {
+        let new_val = $(this).val().substr(0, input_max);
+        $(this).val(new_val);
+
+        if (parseInt(new_val) >= req_min && parseInt(new_val) <= req_max) {
+            // focus next
+              $('#' + input_next).focus();
+        } else if (parseInt(new_val) > req_max) {
+            $(this).val(req_max);
+        } else {
+            setTimeout(function () {
+                $('.validate-' + input_id).addClass('active');
+                $('.validate-' + input_id).attr("role", "alert");
+            }, 500);
+        }
+    }
+});
+
+window.onkeydown = function (event) {
+    if (event.keyCode === 32) {
+        $('#age-gate__form .btn.btn--hero btn--hero-inline').click();
+        //event.preventDefault();
+    }
+};
+
+var KEYCODE_TAB = 9;
+const bmonth = document.querySelector('#bmonth');
+bmonth.addEventListener('keydown', function (e) {
+    if (e.key === 'Tab' || e.keyCode === KEYCODE_TAB) {
+        if (e.shiftKey) {
+            e.preventDefault();
+            bmonth.focus();
+        }
+    }
+});
+
+$('[tabindex]').focus(function () {
+    $(this).css('outline', '1.5px solid rgb(255,255,255,1) !important');
+    $(this).css('outline-offset', '2px !important');
+});
+
+$('[tabindex]').focusout(function () {
+    $(this).css('outline', 'none !important');
+});
+
+/* Handling Age Gate Modal Accessibility Control*/
+const focusableElements = 'button, [href], svg, input, select, textarea, [tabindex]:not([tabindex="-1"])';
+const modal = document.querySelector('#age-gate');
+
+const firstFocusableElement = modal.querySelectorAll(focusableElements)[0];
+const secondFocusableElement = modal.querySelectorAll(focusableElements)[1];
+const focusableContent = modal.querySelectorAll(focusableElements);
+const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+document.addEventListener('keydown', function (e) {
+    let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
+    if (!isTabPressed) {
+        return;
+    }
+
+    if (e.shiftKey) {
+        if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement.focus();
+            e.preventDefault();
+        }
+        if (document.activeElement.id === "bmonth") {
+            $('#age-gate__logo').focus();
+        }
+    } else {
+        if (document.activeElement === lastFocusableElement) {
+            firstFocusableElement.focus();
+            e.preventDefault();
+        }
+    }
+});
+firstFocusableElement.focus();
+
+/* Setting done for 200% or 400% zoom */
+window.addEventListener("resize", getSizes, false);
+function getSizes() {
+  let zoom = ((window.outerWidth - 10) / window.innerWidth) * 100;
+  if (zoom >= 190) {
+    $('#age-gate').addClass('zoom-age-gate');
+    $('#age-gate').css('overflow-y', 'scroll');
+    $('#age-gate').css('overflow-x', 'hidden');
+    $('#hero-vid-gate').css('display', 'none');
+    $('#age-gate__form fieldset').attr('style', 'width: 96% !important');
+    $('.age-gate__form').css('width', '100%');
+    $('.age-gate__form').css('margin-left', '0px');
+    $('.age-gate__input-wrap:after').attr('style', 'bottom: 28%');
+    {% if backgroundType == 'image' %}
+        $('#age-gate').css('background-image', `url({{ section.settings.background_image | img_url: 'master' }})`);
+        $('#age-gate').css('background-size', '170%');
+        $('#age-gate').css('background-position', 'center');
+    {% endif %}
+    if (zoom >= 290) {
+        $('#age-gate__form input').addClass('zoom-400p');
+    }
+  }
+  else if (zoom < 190) {
+    $('#age-gate').removeClass('zoom-age-gate');
+    $('#age-gate').css('overflow', 'hidden');
+    $('#hero-vid-gate').css('display', 'block');
+    $('.age-gate__input-wrap:after').attr('style', '');
+    {% if backgroundType == 'image' %}
+        $('#age-gate').css('background-image', 'none');
+        $('#age-gate').css('background-size', 'unset');
+    {% endif %}
+    $('#age-gate__form input').removeClass('zoom-400p');
+  }
+}
+getSizes();
+</script>

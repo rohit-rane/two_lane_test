@@ -2730,6 +2730,11 @@ details-disclosure > details {
   border-right: none;
 }
 
+#MainContent{
+  font-family: Avenir,Helvetica,Arial,sans-serif;
+}
+
+
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   .grid {

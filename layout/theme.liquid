@@ -254,6 +254,11 @@
       }
     </script>
 
+  {% capture 'urlPath' %}{{request.path}}{% endcapture %}
+  {% unless urlPath contains "/pages/terms-conditions" or urlPath contains "/pages/privacy-policy" or urlPath contains "/pages/terminos-condiciones" or urlPath contains "/pages/politica-privacidad" %}
+    {% section 'age-gate' %}
+  {% endunless %}
+
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
